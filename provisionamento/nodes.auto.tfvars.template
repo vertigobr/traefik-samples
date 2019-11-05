@@ -1,0 +1,12 @@
+# api token (digital ocean) - PREENCHER
+do_token = ""
+
+# Images:
+# * 30970148 = Docker 17.12 on 16.04 (user "root")
+# * 50944795 = Docker 19.03 on 18.04 (user "root")
+# * coreos-stable = CoreOS stable channel (user "core")
+# * centos-7-x64 = centos puro, sem docker
+do_image = "50944795"
+
+ssh_keys = []
+

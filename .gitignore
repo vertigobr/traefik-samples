@@ -1,0 +1,13 @@
+*.auto.tfvars
+roles/
+.terraform/
+.vscode/
+**/*.backup
+**/*.retry
+*.pem
+*.old
+docker_env.sh
+*.tfstate
+backend.tf
+/certs
+
