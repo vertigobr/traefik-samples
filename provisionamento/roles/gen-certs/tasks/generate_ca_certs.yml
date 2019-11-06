@@ -1,7 +1,4 @@
 
-- name: get timestamp
-  debug: var=ansible_date_time.iso8601_basic
-
 - name: Generate ca-key.pem
   openssl_privatekey:
     path: ./certs/ca-key.pem
@@ -18,7 +15,7 @@
       - keyAgreement
       - keyEncipherment
       - digitalSignature
-    organization_name: TJRJ
+    organization_name: Vertigo
 #    common_name: localhost
 
 - name: Generate ca certificate

@@ -6,3 +6,5 @@
     - create-cluster.yml
     - get-swarm-token.yml
     - join-managers.yml
+    - secure-swarm.yml
+

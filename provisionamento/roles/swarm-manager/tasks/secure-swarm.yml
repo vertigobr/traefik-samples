@@ -1,0 +1,40 @@
+
+- name: Check that the server cert path exists
+  file:
+    state: directory
+    path: "/etc/docker/certs"
+
+- name: Copy server certs
+  copy:
+    src: "./certs/{{ item }}"
+    dest: "/etc/docker/certs/"
+    mode: '0400'
+  notify:
+    - restart docker
+  with_items:
+    - ca.pem
+    - server-cert.pem
+    - server-key.pem
+
+- name: "create daemon.json file"
+  copy:
+    content: '{
+        "hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2376"],
+        "tls": true,
+        "tlscacert": "/etc/docker/certs/ca.pem",
+        "tlscert": "/etc/docker/certs/server-cert.pem",
+        "tlskey": "/etc/docker/certs/server-key.pem",
+        "tlsverify": true
+      }'
+    dest: /etc/docker/daemon.json
+  notify:
+    - restart docker
+
+- name: fix ubuntu docker service bug
+  replace:
+    path: /etc/systemd/system/multi-user.target.wants/docker.service
+    regexp: '(.*) -H fd\:\/\/(.*)'
+    replace: '\1 \2'
+  notify:
+    - restart docker
+
