@@ -1,0 +1,19 @@
+## Copyright 2019 Vertigo Tecnologia. Todos os direitos reservados.
+##
+## Meetup Docker Nov/2019.
+---
+
+- hosts: localhost
+  gather_facts: no
+  roles:
+    - gen-certs
+
+- hosts: managers
+  become: true
+  roles:
+    - swarm-manager
+
+- hosts: workers
+  become: true
+  roles:
+    - swarm-worker

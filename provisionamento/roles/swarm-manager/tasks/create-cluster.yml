@@ -1,0 +1,17 @@
+- name: Abre porta 2377 nos managers
+  ufw:
+    rule: allow
+    port: '2377'
+    interface: eth1
+    direction: in
+    
+- name: Cria o cluster no primeiro servidor
+  docker_swarm:
+    state: present
+    advertise_addr: "eth1:2377"
+    #advertise_addr: "{{ hostvars[groups['managers'][0]]['ansible_eth1']['ipv4']['address'] }}"
+  when: "inventory_hostname == groups['managers'][0]"
+
+# - name: Dump advertise_addr
+#   debug:
+#     msg: "{{ hostvars[groups['managers'][0]]['ansible_eth1']['ipv4']['address'] }}"

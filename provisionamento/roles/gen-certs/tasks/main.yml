@@ -1,0 +1,7 @@
+---
+# tasks file for runner
+- include: "{{item}}"
+  loop:
+    - generate_ca_certs.yml
+    - generate_server_certs.yml
+    - generate_client_certs.yml

@@ -1,0 +1,29 @@
+
+- name: get timestamp
+  debug: var=ansible_date_time.iso8601_basic
+
+- name: Generate ca-key.pem
+  openssl_privatekey:
+    path: ./certs/ca-key.pem
+  
+- name: Generate ca certificate csr
+  openssl_csr:
+    path: ./certs/ca.csr
+    privatekey_path: ./certs/ca-key.pem
+    key_usage_critical: yes
+    basic_constraints: "CA:TRUE"
+    basic_constraints_critical: yes
+    key_usage:
+      - keyCertSign
+      - keyAgreement
+      - keyEncipherment
+      - digitalSignature
+    organization_name: TJRJ
+#    common_name: localhost
+
+- name: Generate ca certificate
+  openssl_certificate:
+    path: ./certs/ca.pem
+    privatekey_path: ./certs/ca-key.pem
+    csr_path: ./certs/ca.csr
+    provider: selfsigned

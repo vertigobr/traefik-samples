@@ -1,0 +1,9 @@
+- name: Instala pip no worker
+  apt:
+    name: python3-pip
+    state: present
+    update_cache: yes
+
+- name: Instala modulo python docker via pip no worker
+  pip:
+    name: docker

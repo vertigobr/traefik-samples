@@ -1,0 +1,9 @@
+- name: Instala pip
+  apt:
+    name: python3-pip
+    state: present
+    update_cache: yes
+
+- name: Instala modulo python docker via pip
+  pip:
+    name: docker

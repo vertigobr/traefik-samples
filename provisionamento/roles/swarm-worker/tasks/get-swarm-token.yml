@@ -1,0 +1,6 @@
+- name: Get info on Docker Swarm manager
+  docker_swarm_info:
+    verbose_output: yes
+  ignore_errors: yes
+  register: swarm_info
+  delegate_to: "{{ groups['managers'][0] }}"

@@ -1,0 +1,14 @@
+- name: Get info on Docker Swarm
+  docker_swarm_info:
+    verbose_output: yes
+  ignore_errors: yes
+  register: swarm_info
+  delegate_to: "{{ groups['managers'][0] }}"
+
+# - name: Dump swarm info
+#   debug:
+#     var: swarm_info
+
+# - name: Dump swarm token
+#   debug:
+#     msg: "{{ swarm_info.swarm_facts.JoinTokens.Manager }}"

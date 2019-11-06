@@ -1,0 +1,12 @@
+
+# - name: Dump remote addr
+#   debug:
+#     msg: "{{ hostvars[groups['managers'][0]]['ansible_eth1']['ipv4']['address'] }}:2377"
+
+- name: Adiciona os outros swarms Workers
+  docker_swarm:
+    state: join
+    advertise_addr: 'eth1'
+    join_token: "{{ swarm_info.swarm_facts.JoinTokens.Worker }}"
+    remote_addrs: "{{ hostvars[groups['managers'][0]]['ansible_eth1']['ipv4']['address'] }}:2377"
+  when: "inventory_hostname != groups['managers'][0]"

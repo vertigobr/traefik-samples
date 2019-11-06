@@ -1,0 +1,8 @@
+---
+# tasks file for runner
+- include: "{{item}}"
+  loop:
+    - check-docker-pip.yml
+    - create-cluster.yml
+    - get-swarm-token.yml
+    - join-managers.yml

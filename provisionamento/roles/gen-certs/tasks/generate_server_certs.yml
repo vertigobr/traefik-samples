@@ -1,0 +1,22 @@
+
+- name: Generate server key
+  openssl_privatekey:
+    path: ./certs/server-key.pem
+
+# TODO: decidir como fornecer nomes DNS e IPs
+- name: Create the server CSR
+  openssl_csr:
+    path: ./certs/server.csr
+    privatekey_path: ./certs/server-key.pem
+    subject_alt_name: 'DNS:manager1,DNS:manager.tjrj.info,IP:127.0.0.1'
+    common_name: localhost
+    extended_key_usage:
+      - serverAuth
+
+- name: Create the server certificate
+  openssl_certificate:
+    path: ./certs/server-cert.pem
+    csr_path: ./certs/server.csr
+    ownca_path: ./certs/ca.pem
+    ownca_privatekey_path: ./certs/ca-key.pem
+    provider: ownca
