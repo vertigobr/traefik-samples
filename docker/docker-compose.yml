@@ -1,2 +1,23 @@
 # sem swarm
 #
+version: '3'
+
+services:
+  traefik:
+    image: traefik:v2.0
+    command: --providers.docker=true --providers.docker.endpoint="unix:///var/run/docker.sock"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "80:80"
+
+  webapp1:
+    image: nginx
+    command: /bin/bash -c "echo '<h1>webapp1</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+    labels:
+      - "traefik.http.routers.webapp1.rule=Host(`app1.company.com`)"
+
+  webapp2:
+    image: nginx
+    labels:
+      - "traefik.http.routers.webapp2.rule=Host(`app2.company.com`)"

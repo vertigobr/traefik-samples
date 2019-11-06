@@ -8,5 +8,6 @@ do_token = ""
 # * centos-7-x64 = centos puro, sem docker
 do_image = "50944795"
 
+# list of public key fingerprints
 ssh_keys = []
 
