@@ -41,7 +41,9 @@ services:
         constraints:
           - node.role == worker
       labels:
+        - "traefik.enable=true"
         - "traefik.http.routers.webapp2.rule=Host(`app2.company.com`)"
+        - "traefik.http.services.webapp2.loadbalancer.server.port=80"
     networks:
       - web
 
