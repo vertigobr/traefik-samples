@@ -20,8 +20,9 @@ services:
       - "8080:8080"
 
   webapp1:
-    image: nginx
-    command: /bin/bash -c "echo '<h1>Esta é a webapp1</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+    image: containous/whoami
+    #image: nginx
+    #command: /bin/bash -c "echo '<h1>Esta é a webapp1</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
     deploy:
       placement:
         constraints:
@@ -34,8 +35,9 @@ services:
       - web
 
   webapp2:
-    image: nginx
-    command: /bin/bash -c "echo '<h1>Esta é a webapp2</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+    image: containous/whoami
+    #image: nginx
+    #command: /bin/bash -c "echo '<h1>Esta é a webapp2</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
     deploy:
       placement:
         constraints:

@@ -1,7 +1,7 @@
 # traefik-samples
 Exemplos de Traefik para Meetups
 
-# Provisionamento
+# Provisionamento (Docker em swarm mode)
 
 A pasta `provisionamento` contém o terraform para criação das VMs da Digital Ocean e a role ansible para configurar Swarm Mode com socket seguro.
 
@@ -23,6 +23,15 @@ docker stack deploy -c portainer-service.yml portainer
 ssh -L 9000:localhost:9000 root@manager.vtg
 ```
 
+# Provisionamento (Kubernetes)
+
+A pasta `provisionamento` possui um script para criação de cluster kubernetes na Digital Ocean.
+
+```sh
+./create-k8s.sh
+# para testar
+kubectl get nodes
+```
 
 # Docker (stand-alone)
 
@@ -42,6 +51,7 @@ A pasta `swarm` contém um exemplo de uso do Traefik em um cluster swarm mode.
 
 ```sh
 docker stack deploy -c docker-compose.yml webapp
+# para testar
 curl app1.company.com
 curl app2.company.com
 # opcional: observar serviços e containers no portainer
@@ -53,6 +63,9 @@ docker stack rm webapp
 A pasta `k8s` contém um exemplo de uso do Traefik em um cluster kubernetes.
 
 ```sh
-
+kubectl apply -f ./01-traefik/
+kubectl apply -f ./02-webapp/
+# para testar
+curl app3.company.com
 ```
 

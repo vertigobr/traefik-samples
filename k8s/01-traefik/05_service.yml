@@ -8,6 +8,8 @@ spec:
       port: 80
     - name: websecure
       port: 443
+    - name: admin
+      port: 8080
     - name: mongo
       port: 27017
   selector:

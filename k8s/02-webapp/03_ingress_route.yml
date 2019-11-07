@@ -10,7 +10,7 @@ spec:
   entryPoints:
     - web
   routes:
-  - match: Host(`localhost`)
+  - match: Host(`app3.company.com`)
     kind: Rule
     services:
     - name: webapp

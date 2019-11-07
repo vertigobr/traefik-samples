@@ -9,7 +9,7 @@ data:
     http:
       routers:
         api:
-          rule: Host(`localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+          rule: Host(`cluster.vtg`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
           service: api@internal
           middlewares:
             - auth

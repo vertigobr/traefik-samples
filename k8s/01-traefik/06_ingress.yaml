@@ -9,7 +9,7 @@
 #     - http
 #     - https
 #   routes:
-#     - match: Host(`dashboard.docker.localhost`)
+#     - match: Host(`dashboard.vtg`)
 #       kind: Rule
 #       services:
 #         - name: traefik-ingress-controller
