@@ -5,8 +5,11 @@ version: '3'
 services:
   traefik:
     image: traefik:v2.0
-    command: --providers.docker.endpoint="unix:///var/run/docker.sock" --providers.docker.swarmMode=true --providers.docker.exposedbydefault=false --api.insecure=true
-    #command: --providers.docker=true --providers.docker.endpoint="unix:///var/run/docker.sock" --providers.docker.swarmMode=true
+    command: >
+      --providers.docker.endpoint="unix:///var/run/docker.sock"
+      --providers.docker.swarmMode=true
+      --providers.docker.exposedbydefault=false
+      --api.insecure=true
     deploy:
       placement:
         constraints:
@@ -21,9 +24,8 @@ services:
 
   webapp1:
     image: containous/whoami
-    #image: nginx
-    #command: /bin/bash -c "echo '<h1>Esta é a webapp1</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
     deploy:
+      replicas: 2
       placement:
         constraints:
           - node.role == worker
@@ -36,8 +38,6 @@ services:
 
   webapp2:
     image: containous/whoami
-    #image: nginx
-    #command: /bin/bash -c "echo '<h1>Esta é a webapp2</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
     deploy:
       placement:
         constraints:
