@@ -1,10 +1,25 @@
-- name: Abre porta 2377 nos managers
+- name: Abre portas tcp nos managers
   ufw:
     rule: allow
-    port: '2377'
+    port: "{{ item }}"
     interface: eth1
+    proto: tcp
     direction: in
+  with_items:
+    - 2377
+    - 7946
     
+- name: Abre portas udp nos managers
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    interface: eth1
+    proto: udp
+    direction: in
+  with_items:
+    - 7946
+    - 4789
+
 - name: Cria o cluster no primeiro servidor
   docker_swarm:
     state: present

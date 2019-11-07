@@ -1,0 +1,104 @@
+version: "3.7"
+
+#
+# PORTAINER SERVICE
+#
+
+services:
+  
+  server:
+    
+    image: portainer/portainer:1.22.2
+    
+    command: -H tcp://tasks.agent:9001 --tlsskipverify
+
+    volumes:
+      - type: volume
+        source: data
+        target: /data
+
+    networks:
+      - portainer
+    ports:
+      - "9000:9000"
+    
+    deploy:
+      mode: replicated
+      
+      replicas: 1
+      
+      restart_policy:
+        condition: on-failure
+      
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      
+      rollback_config:
+        parallelism: 1
+        delay: 10s        
+        order: start-first
+      
+      placement:
+        constraints: 
+          - node.role == manager
+      
+      labels:
+        config.release: "v0.1"
+        
+        ## Portainer Dashboard ##
+        #traefik.port: "9000"
+        #traefik.enable: "true"
+        #traefik.backend: "portainer"
+        #traefik.docker.network: "proxy"
+        #traefik.frontend.rule: "Host:portainer.tjrj.info"
+
+#
+# PORTAINER AGENTE
+#
+
+  agent:
+    
+    image: portainer/agent:1.5.1
+    
+    environment:
+      AGENT_CLUSTER_ADDR: tasks.agent
+    
+    volumes:
+      - type: bind
+        target: /var/run/docker.sock
+        source: /var/run/docker.sock
+
+      - type: bind
+        target: /var/lib/docker/volumes
+        source: /var/lib/docker/volumes
+   
+    networks:
+      - portainer
+    
+    deploy:
+      mode: global
+      
+      update_config:
+          parallelism: 1
+          delay: 10s
+          order: start-first
+      
+      labels:
+          traefik.enable: "false"
+      
+      restart_policy:
+        condition: on-failure
+      
+      placement:
+        constraints: 
+          - node.platform.os == linux
+
+volumes:
+  data:
+
+networks:
+  portainer:
+    driver: overlay
+    attachable: true

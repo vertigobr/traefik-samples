@@ -1,3 +1,21 @@
+- name: Abre portas tcp nos workers
+  ufw:
+    rule: allow
+    port: '7946'
+    interface: eth1
+    proto: tcp
+    direction: in
+
+- name: Abre portas udp nos workers
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    interface: eth1
+    proto: udp
+    direction: in
+  with_items:
+    - 7946
+    - 4789
 
 # - name: Dump remote addr
 #   debug:
