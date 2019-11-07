@@ -29,6 +29,30 @@ ssh -L 9000:localhost:9000 root@manager.vtg
 A pasta `docker` contém um exemplo de uso do Traefik em um docker engine stand-alone.
 
 ```sh
+docker-compose up -d
+# atribuir IP de manager.vtg para app1.company.com e app2.company.com
+curl app1.company.com
+curl app2.company.com
+docker-compose down
+```
+
+# Docker (swarm mode)
+
+A pasta `swarm` contém um exemplo de uso do Traefik em um cluster swarm mode.
+
+```sh
+docker stack deploy -c docker-compose.yml webapp
+curl app1.company.com
+curl app2.company.com
+# opcional: observar serviços e containers no portainer
+docker stack rm webapp
+```
+
+# Kubernetes
+
+A pasta `k8s` contém um exemplo de uso do Traefik em um cluster kubernetes.
+
+```sh
 
 ```
 
