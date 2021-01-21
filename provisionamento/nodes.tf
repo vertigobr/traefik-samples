@@ -1,5 +1,5 @@
-variable "do_token" {
-}
+
+variable "do_token" {}
 
 variable "ssh_keys" {
   default = []

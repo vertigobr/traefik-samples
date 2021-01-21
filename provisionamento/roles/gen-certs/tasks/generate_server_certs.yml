@@ -8,7 +8,7 @@
   openssl_csr:
     path: ./certs/server.csr
     privatekey_path: ./certs/server-key.pem
-    subject_alt_name: 'DNS:manager.vtg,IP:127.0.0.1'
+    subject_alt_name: "DNS:manager.vtg,IP:127.0.0.1,IP:{{ groups['managers'][0] }}"
     common_name: localhost
     extended_key_usage:
       - serverAuth

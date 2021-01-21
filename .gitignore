@@ -1,5 +1,6 @@
 *.auto.tfvars
 .terraform/
+.terraform.lock.*
 .vscode/
 **/*.backup
 **/*.retry
